@@ -1,4 +1,5 @@
-package errors
+// Package restError provides a simple REST error implementation.
+package restError
 
 // RestErr is a collection of errors
 type RestErr struct {
