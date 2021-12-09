@@ -1,7 +1,10 @@
 package services
 
-func CreateUser() {}
+import (
+	"bookstore/domain/users"
+	"bookstore/utils/errors"
+)
 
-func GetUser() {}
-
-func FindUser() {}
+func CreateUser(user users.User) (*users.User, *errors.RestErr) {
+	return &user, nil
+}
