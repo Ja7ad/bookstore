@@ -3,15 +3,13 @@ POST http://localhost:8080/users
 Content-Type: application/json
 
 {
-  "id": 12,
   "first_name": "Javad",
   "last_name": "Rajabzade",
-  "email": "dev@javad.tech",
-  "date_created": "xxxx-xx-xx"
+  "email": "dev@javad.tech"
 }
 
 ###
 
 # get users
-GET http://localhost:8080/users/123
+GET http://localhost:8080/users/12
 Accept: application/json
