@@ -2,7 +2,7 @@
 package users
 
 import (
-	"bookstore/utils/errors"
+	"bookstore/errors/restError"
 	"strings"
 )
 
@@ -16,10 +16,10 @@ type User struct {
 }
 
 // Validate user entity
-func (u *User) Validate() *errors.RestErr {
+func (u *User) Validate() *restError.RestErr {
 	u.Email = strings.TrimSpace(strings.ToLower(u.Email))
 	if u.Email == "" {
-		return errors.NewBadRequestError("invalid email address")
+		return restError.NewBadRequestError("invalid email address")
 	}
 
 	return nil
