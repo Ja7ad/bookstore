@@ -6,6 +6,7 @@ import (
 	"bookstore/utils/errors"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 func CreateUser(ctx *gin.Context) {
@@ -26,14 +27,20 @@ func CreateUser(ctx *gin.Context) {
 	return
 }
 
+// GetUser returns a user by its id
 func GetUser(ctx *gin.Context) {
-	ctx.JSON(http.StatusNotImplemented, gin.H{
-		"message": "not implemented",
-	})
-}
+	userId, userErr := strconv.ParseInt(ctx.Param("user_id"), 10, 64)
+	if userErr != nil {
+		err := errors.NewBadRequestError("user id should be a number")
+		ctx.JSON(err.Status, err)
+		return
+	}
 
-func SearchUser(ctx *gin.Context) {
-	ctx.JSON(http.StatusNotImplemented, gin.H{
-		"message": "not implemented",
-	})
+	user, getErr := services.GetUser(userId)
+	if getErr != nil {
+		ctx.JSON(getErr.Status, getErr)
+		return
+	}
+
+	ctx.JSON(http.StatusOK, user)
 }
