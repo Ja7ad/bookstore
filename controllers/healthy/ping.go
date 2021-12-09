@@ -1,4 +1,4 @@
-package controllers
+package healthy
 
 import "github.com/gin-gonic/gin"
 
