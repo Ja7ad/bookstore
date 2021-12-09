@@ -36,3 +36,10 @@ Content-Type: application/json
   "last_name": "Rajabzade"
 }
 
+###
+
+# delete user
+DELETE http://localhost:8080/users/1
+Content-Type: application/json
+
+

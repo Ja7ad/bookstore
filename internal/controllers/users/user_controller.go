@@ -9,7 +9,17 @@ import (
 	"strconv"
 )
 
-func CreateUser(ctx *gin.Context) {
+// getUserId validate user id from url parameter
+func getUserId(userIdParam string) (int64, *restError.RestErr) {
+	userId, userErr := strconv.ParseInt(userIdParam, 10, 64)
+	if userErr != nil {
+		return 0, restError.NewBadRequestError("user id should be a number")
+	}
+	return userId, nil
+}
+
+// Create new user
+func Create(ctx *gin.Context) {
 	var user users.User
 	if err := ctx.ShouldBindJSON(&user); err != nil {
 		restErr := restError.NewBadRequestError("invalid json body")
@@ -27,12 +37,11 @@ func CreateUser(ctx *gin.Context) {
 	return
 }
 
-// GetUser returns a user by its id
-func GetUser(ctx *gin.Context) {
-	userId, userErr := strconv.ParseInt(ctx.Param("user_id"), 10, 64)
-	if userErr != nil {
-		err := restError.NewBadRequestError("user id should be a number")
-		ctx.JSON(err.Status, err)
+// Get returns a user by its id
+func Get(ctx *gin.Context) {
+	userId, idErr := getUserId(ctx.Param("user_id"))
+	if idErr != nil {
+		ctx.JSON(idErr.Status, idErr)
 		return
 	}
 
@@ -45,12 +54,11 @@ func GetUser(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, user)
 }
 
-// UpdateUser updates a user by its id
-func UpdateUser(ctx *gin.Context) {
-	userId, userErr := strconv.ParseInt(ctx.Param("user_id"), 10, 64)
-	if userErr != nil {
-		err := restError.NewBadRequestError("user id should be a number")
-		ctx.JSON(err.Status, err)
+// Update updates a user by its id
+func Update(ctx *gin.Context) {
+	userId, idErr := getUserId(ctx.Param("user_id"))
+	if idErr != nil {
+		ctx.JSON(idErr.Status, idErr)
 		return
 	}
 
@@ -74,4 +82,20 @@ func UpdateUser(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, result)
 
+}
+
+// Delete delete user from database by id
+func Delete(ctx *gin.Context) {
+	userId, idErr := getUserId(ctx.Param("user_id"))
+	if idErr != nil {
+		ctx.JSON(idErr.Status, idErr)
+		return
+	}
+
+	if err := services.DeleteUser(userId); err != nil {
+		ctx.JSON(err.Status, err)
+		return
+	}
+
+	ctx.JSON(http.StatusOK, map[string]string{"status": "deleted"})
 }
