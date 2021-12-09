@@ -1,7 +1,7 @@
 package services
 
 import (
-	"bookstore/domain/users"
+	"bookstore/internal/domain/users"
 	"bookstore/utils/errors"
 )
 

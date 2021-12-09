@@ -1,8 +1,8 @@
 package users
 
 import (
-	"bookstore/domain/users"
-	"bookstore/services"
+	"bookstore/internal/domain/users"
+	"bookstore/internal/services"
 	"bookstore/utils/errors"
 	"github.com/gin-gonic/gin"
 	"net/http"

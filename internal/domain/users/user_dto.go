@@ -16,9 +16,9 @@ type User struct {
 }
 
 // Validate user entity
-func (user *User) Validate() *errors.RestErr {
-	user.Email = strings.TrimSpace(strings.ToLower(user.Email))
-	if user.Email == "" {
+func (u *User) Validate() *errors.RestErr {
+	u.Email = strings.TrimSpace(strings.ToLower(u.Email))
+	if u.Email == "" {
 		return errors.NewBadRequestError("invalid email address")
 	}
 

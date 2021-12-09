@@ -1,8 +1,8 @@
 package app
 
 import (
-	"bookstore/controllers/healthy"
-	"bookstore/controllers/users"
+	"bookstore/internal/controllers/healthy"
+	"bookstore/internal/controllers/users"
 )
 
 func mapUrls() {
