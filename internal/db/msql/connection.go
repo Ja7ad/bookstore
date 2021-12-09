@@ -1,5 +1,5 @@
-// Package mysql provides a MySQL implementation of the database interface
-package mysql
+// Package msql provides a MySQL implementation of the database interface
+package msql
 
 import (
 	"database/sql"
