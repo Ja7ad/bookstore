@@ -16,10 +16,23 @@ Accept: application/json
 
 ###
 
-# update users
+# update user
 PUT http://localhost:8080/users/1
 Content-Type: application/json
 
 {
-
+  "first_name": "Ali",
+  "last_name": "Asadi",
+  "email": "dev@javad.tech"
 }
+
+###
+
+# patch user
+PATCH http://localhost:8080/users/1
+Content-Type: application/json
+
+{
+  "last_name": "Rajabzade"
+}
+
