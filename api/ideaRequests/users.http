@@ -11,5 +11,15 @@ Content-Type: application/json
 ###
 
 # get users
-GET http://localhost:8080/users/12
+GET http://localhost:8080/users/1
 Accept: application/json
+
+###
+
+# update users
+PUT http://localhost:8080/users/1
+Content-Type: application/json
+
+{
+
+}
