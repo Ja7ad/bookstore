@@ -10,19 +10,19 @@ import (
 )
 
 const (
-	MYSQL_USERNAME = "mysql_username"
-	MYSQL_PASSWORD = "mysql_password"
-	MYSQL_HOST     = "mysql_host"
-	MYSQL_SCHEMA   = "mysql_schema"
+	MysqlUsername = "mysql_username"
+	MysqlPassword = "mysql_password"
+	MysqlHost     = "mysql_host"
+	MysqlSchema   = "mysql_schema"
 )
 
 var (
 	Client *sql.DB // Client is the MySQL connection instance
 
-	username = os.Getenv(MYSQL_USERNAME)
-	password = os.Getenv(MYSQL_PASSWORD)
-	host     = os.Getenv(MYSQL_HOST)
-	schema   = os.Getenv(MYSQL_SCHEMA)
+	username = os.Getenv(MysqlUsername)
+	password = os.Getenv(MysqlPassword)
+	host     = os.Getenv(MysqlHost)
+	schema   = os.Getenv(MysqlSchema)
 )
 
 // init registers the MySQL driver
