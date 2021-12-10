@@ -1,6 +1,6 @@
 # BookStore Microservice API
 
-Here is an example of a microservice API based on a clean architecture and SOLID principles implemented.
+A example of a microservice API based on a clean architecture and SOLID principles implemented.
 
 
 ![bookstore](./assets/bookstore.png)
