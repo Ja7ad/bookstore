@@ -33,7 +33,7 @@ func Create(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusCreated, result)
+	ctx.JSON(http.StatusCreated, result.Marshal(ctx.GetHeader("X-Public") == "true"))
 	return
 }
 
@@ -51,7 +51,7 @@ func Get(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, user)
+	ctx.JSON(http.StatusOK, user.Marshal(ctx.GetHeader("X-Public") == "true"))
 }
 
 // Update updates a user by its id
@@ -109,5 +109,5 @@ func Search(ctx *gin.Context) {
 		ctx.JSON(err.Status, err)
 	}
 
-	ctx.JSON(http.StatusOK, usersList)
+	ctx.JSON(http.StatusOK, usersList.Marshal(ctx.GetHeader("X-Public") == "true"))
 }
