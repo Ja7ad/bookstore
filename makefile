@@ -10,6 +10,9 @@ test:
 vet:
 	go vet ./...
 
+lint:
+	golangci-lint run ./...
+
 build:
 	go build -o build/bookstore cmd/bookstore/main.go
 	go build -o build/oauth cmd/oauth/main.go
