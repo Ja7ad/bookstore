@@ -3,6 +3,7 @@ package services
 import (
 	"bookstore/errors/restError"
 	"bookstore/internal/domain/users"
+	"bookstore/utils/date"
 )
 
 // GetUser gets a user by its id
@@ -19,6 +20,9 @@ func CreateUser(user users.User) (*users.User, *restError.RestErr) {
 	if err := user.Validate(); err != nil {
 		return nil, err
 	}
+
+	user.Status = users.StatusActive
+	user.DateCreated = date.GetNowDBFormat()
 
 	if err := user.Save(); err != nil {
 		return nil, err
@@ -61,4 +65,10 @@ func UpdateUser(isPartial bool, user users.User) (*users.User, *restError.RestEr
 func DeleteUser(userId int64) *restError.RestErr {
 	user := &users.User{Id: userId}
 	return user.Delete()
+}
+
+// Search user in database
+func Search(status string) ([]users.User, *restError.RestErr) {
+	dao := &users.User{}
+	return dao.FindByStatus(status)
 }

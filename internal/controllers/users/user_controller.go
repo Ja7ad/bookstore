@@ -99,3 +99,15 @@ func Delete(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, map[string]string{"status": "deleted"})
 }
+
+// Search user in database
+func Search(ctx *gin.Context) {
+	status := ctx.Query("status")
+
+	usersList, err := services.Search(status)
+	if err != nil {
+		ctx.JSON(err.Status, err)
+	}
+
+	ctx.JSON(http.StatusOK, usersList)
+}

@@ -5,7 +5,8 @@ Content-Type: application/json
 {
   "first_name": "Javad",
   "last_name": "Rajabzade",
-  "email": "dev@javad.tech"
+  "email": "dev@javad.tech",
+  "password": "11223"
 }
 
 ###
@@ -40,6 +41,12 @@ Content-Type: application/json
 
 # delete user
 DELETE http://localhost:8080/users/1
+Content-Type: application/json
+
+###
+
+# search user
+GET http://localhost:8080/internal/users/search?status=active
 Content-Type: application/json
 
 
