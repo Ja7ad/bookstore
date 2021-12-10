@@ -1,0 +1,19 @@
+POST http://localhost:8080/oauth/access_token
+Content-Type: application/json
+
+{
+  "access_token": "abc123",
+  "user_id": 1,
+  "client_id": 2,
+  "expires": 123
+}
+
+###
+// create access token
+
+
+// get access token
+GET http://localhost:8080/oauth/access_token/abc123
+Accept: application/json
+
+###
