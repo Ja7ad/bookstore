@@ -1,11 +1,17 @@
 // Package restError provides a simple REST error implementation.
 package restError
 
+import "errors"
+
 // RestErr is a collection of errors
 type RestErr struct {
 	Message string `json:"message"`
 	Status  int    `json:"status"`
 	Error   string `json:"error"`
+}
+
+func NewErrror(msg string) error {
+	return errors.New(msg)
 }
 
 // NewBadRequestError - returns a new bad request error
