@@ -5,18 +5,19 @@ import (
 	"bookstore/internal/db/msql"
 	"bookstore/pkg/errors/restError"
 	"bookstore/pkg/logger"
+	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 )
 
 // Mysql queries
 const (
-	queryInsertUser             = "INSERT INTO users(first_name, last_name, email, date_created, status, password) VALUES(?, ?, ?, ?, ?, ?);"
-	queryGetUser                = " id, first_name, last_name, email, date_created, status FROM users WHERE id=?;"
-	queryUpdateUser             = "UPDATE users SET first_name=?, last_name=?, email=? WHERE id=?;"
-	queryDeleteUser             = "DELETE FROM users WHERE id=?;"
-	queryFindByStatus           = "SELECT id, first_name, last_name, email, date_created, status FROM users WHERE status=?;"
-	queryFindByEmailAndPassword = "SELECT id, first_name, last_name, email, date_created, status form users where email=? AND password=?;"
+	queryInsertUser   = "INSERT INTO users(first_name, last_name, email, date_created, status, password) VALUES(?, ?, ?, ?, ?, ?);"
+	queryGetUser      = " id, first_name, last_name, email, date_created, status FROM users WHERE id=?;"
+	queryUpdateUser   = "UPDATE users SET first_name=?, last_name=?, email=? WHERE id=?;"
+	queryDeleteUser   = "DELETE FROM users WHERE id=?;"
+	queryFindByStatus = "SELECT id, first_name, last_name, email, date_created, status FROM users WHERE status=?;"
+	// queryFindByEmailAndPassword = "SELECT id, first_name, last_name, email, date_created, status form users where email=? AND password=?;"
 )
 
 // Get user by id from database
@@ -26,7 +27,12 @@ func (u *User) Get() *restError.RestErr {
 		logger.Error("error when trying to prepare get user statement", err)
 		return restError.NewInternalServerError("database error")
 	}
-	defer stmt.Close()
+	defer func(stmt *sql.Stmt) {
+		err := stmt.Close()
+		if err != nil {
+			return
+		}
+	}(stmt)
 
 	result := stmt.QueryRow(u.Id)
 	if getErr := result.Scan(&u.Id, &u.FirstName, &u.LastName, &u.Email, &u.DateCreated, &u.Status); getErr != nil {
@@ -44,7 +50,12 @@ func (u *User) Save() *restError.RestErr {
 		logger.Error("error when trying to prepare save user statement", err)
 		return restError.NewInternalServerError("database error")
 	}
-	defer stmt.Close()
+	defer func(stmt *sql.Stmt) {
+		err := stmt.Close()
+		if err != nil {
+			return
+		}
+	}(stmt)
 
 	// insetResult exec query for save user to database
 	insertResult, saveErr := stmt.Exec(u.FirstName, u.LastName, u.Email, u.DateCreated, u.Status, u.Password)
@@ -70,7 +81,12 @@ func (u *User) Update() *restError.RestErr {
 		logger.Error("error when trying to prepare update user statement", err)
 		return restError.NewInternalServerError("database error")
 	}
-	defer stmt.Close()
+	defer func(stmt *sql.Stmt) {
+		err := stmt.Close()
+		if err != nil {
+			return
+		}
+	}(stmt)
 
 	_, err = stmt.Exec(u.FirstName, u.LastName, u.Email, u.Id)
 	if err != nil {
@@ -89,7 +105,12 @@ func (u *User) Delete() *restError.RestErr {
 		logger.Error("error when trying to prepare delete user statement", err)
 		return restError.NewInternalServerError("database error")
 	}
-	defer stmt.Close()
+	defer func(stmt *sql.Stmt) {
+		err := stmt.Close()
+		if err != nil {
+			return
+		}
+	}(stmt)
 
 	if _, err = stmt.Exec(u.Id); err != nil {
 		logger.Error("error when trying to delete user", err)
@@ -106,14 +127,24 @@ func (u *User) FindByStatus(status string) ([]User, *restError.RestErr) {
 		logger.Error("error when trying to prepare find user by status statement", err)
 		return nil, restError.NewInternalServerError("database error")
 	}
-	defer stmt.Close()
+	defer func(stmt *sql.Stmt) {
+		err := stmt.Close()
+		if err != nil {
+			return
+		}
+	}(stmt)
 
 	rows, err := stmt.Query(status)
 	if err != nil {
 		logger.Error("error when trying to find user by status", err)
 		return nil, restError.NewInternalServerError("database error")
 	}
-	defer rows.Close()
+	defer func(rows *sql.Rows) {
+		err := rows.Close()
+		if err != nil {
+			return
+		}
+	}(rows)
 
 	results := make([]User, 0)
 	for rows.Next() {

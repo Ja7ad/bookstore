@@ -1,5 +1,5 @@
-// Package mysqlError implements the mysqlError error codes.
-package mysqlError
+// Package mysqlerror implements the mysqlerror error codes.
+package mysqlerror
 
 import (
 	"bookstore/pkg/errors/restError"
@@ -12,7 +12,7 @@ const (
 	errorNoRows = "no rows in result set"
 )
 
-// ParseError is a wrapper for the mysqlError error
+// ParseError is a wrapper for the mysqlerror error
 func ParseError(err error) *restError.RestErr {
 	sqlErr, ok := err.(*mysql.MySQLError)
 	if !ok {

@@ -36,7 +36,10 @@ func (u *User) Marshal(isPublic bool) interface{} {
 
 	userJson, _ := json.Marshal(u)
 	var privateUser PrivateUser
-	json.Unmarshal(userJson, &privateUser)
+	err := json.Unmarshal(userJson, &privateUser)
+	if err != nil {
+		return nil
+	}
 
 	return privateUser
 }
