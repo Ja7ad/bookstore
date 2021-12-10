@@ -3,7 +3,8 @@ package services
 import (
 	"bookstore/errors/restError"
 	"bookstore/internal/domain/users"
-	"bookstore/utils/date"
+	"bookstore/tools/crypto_tool"
+	"bookstore/tools/date"
 )
 
 // GetUser gets a user by its id
@@ -23,6 +24,7 @@ func CreateUser(user users.User) (*users.User, *restError.RestErr) {
 
 	user.Status = users.StatusActive
 	user.DateCreated = date.GetNowDBFormat()
+	user.Password = crypto_tool.GetMD5(user.Password)
 
 	if err := user.Save(); err != nil {
 		return nil, err
@@ -68,7 +70,7 @@ func DeleteUser(userId int64) *restError.RestErr {
 }
 
 // Search user in database
-func Search(status string) ([]users.User, *restError.RestErr) {
+func Search(status string) (users.Users, *restError.RestErr) {
 	dao := &users.User{}
 	return dao.FindByStatus(status)
 }
