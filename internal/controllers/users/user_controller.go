@@ -1,9 +1,9 @@
 package users
 
 import (
-	"bookstore/errors/restError"
 	"bookstore/internal/domain/users"
 	"bookstore/internal/services"
+	"bookstore/pkg/errors/restError"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"

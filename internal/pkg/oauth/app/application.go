@@ -1,10 +1,10 @@
 package app
 
 import (
-	"bookstore/pkg/oauth/clients/cassandra"
-	"bookstore/pkg/oauth/domain"
-	"bookstore/pkg/oauth/http"
-	"bookstore/pkg/oauth/repository/db"
+	"bookstore/internal/pkg/oauth/clients/cassandra"
+	"bookstore/internal/pkg/oauth/domain"
+	"bookstore/internal/pkg/oauth/http"
+	"bookstore/internal/pkg/oauth/repository/db"
 	"github.com/gin-gonic/gin"
 )
 

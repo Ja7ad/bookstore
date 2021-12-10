@@ -1,10 +1,10 @@
 package services
 
 import (
-	"bookstore/errors/restError"
 	"bookstore/internal/domain/users"
-	"bookstore/tools/crypto_tool"
-	"bookstore/tools/date"
+	"bookstore/pkg/crypto_tool"
+	"bookstore/pkg/date"
+	"bookstore/pkg/errors/restError"
 )
 
 var (

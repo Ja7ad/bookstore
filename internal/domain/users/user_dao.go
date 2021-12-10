@@ -2,9 +2,9 @@
 package users
 
 import (
-	"bookstore/errors/restError"
 	"bookstore/internal/db/msql"
-	"bookstore/logger"
+	"bookstore/pkg/errors/restError"
+	"bookstore/pkg/logger"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 )

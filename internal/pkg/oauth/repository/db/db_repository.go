@@ -1,9 +1,9 @@
 package db
 
 import (
-	"bookstore/errors/restError"
-	"bookstore/pkg/oauth/clients/cassandra"
-	"bookstore/pkg/oauth/domain"
+	"bookstore/internal/pkg/oauth/clients/cassandra"
+	"bookstore/internal/pkg/oauth/domain"
+	"bookstore/pkg/errors/restError"
 	"github.com/gocql/gocql"
 )
 

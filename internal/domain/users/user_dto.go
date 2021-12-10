@@ -2,7 +2,7 @@
 package users
 
 import (
-	"bookstore/errors/restError"
+	"bookstore/pkg/errors/restError"
 	"strings"
 )
 

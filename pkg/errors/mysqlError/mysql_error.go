@@ -2,7 +2,7 @@
 package mysqlError
 
 import (
-	"bookstore/errors/restError"
+	"bookstore/pkg/errors/restError"
 	"github.com/go-sql-driver/mysql"
 	"strings"
 )

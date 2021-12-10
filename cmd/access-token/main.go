@@ -1,6 +1,8 @@
 package main
 
-import "bookstore/pkg/oauth/app"
+import (
+	"bookstore/internal/pkg/oauth/app"
+)
 
 func main() {
 	app.StartApplication()

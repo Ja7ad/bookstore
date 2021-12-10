@@ -1,8 +1,8 @@
 package http
 
 import (
-	"bookstore/errors/restError"
-	"bookstore/pkg/oauth/domain"
+	"bookstore/internal/pkg/oauth/domain"
+	"bookstore/pkg/errors/restError"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
