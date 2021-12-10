@@ -11,11 +11,12 @@ import (
 
 // Mysql queries
 const (
-	queryInsertUser = "INSERT INTO users(first_name, last_name, email, date_created, status, password) VALUES(?, ?, ?, ?, ?, ?);"
-	queryGetUser    = " id, first_name, last_name, email, date_created, status FROM users WHERE id=?;"
-	queryUpdateUser = "UPDATE users SET first_name=?, last_name=?, email=? WHERE id=?;"
-	queryDeleteUser = "DELETE FROM users WHERE id=?;"
-	queryFindUser   = "SELECT id, first_name, last_name, email, date_created, status FROM users WHERE status=?;"
+	queryInsertUser             = "INSERT INTO users(first_name, last_name, email, date_created, status, password) VALUES(?, ?, ?, ?, ?, ?);"
+	queryGetUser                = " id, first_name, last_name, email, date_created, status FROM users WHERE id=?;"
+	queryUpdateUser             = "UPDATE users SET first_name=?, last_name=?, email=? WHERE id=?;"
+	queryDeleteUser             = "DELETE FROM users WHERE id=?;"
+	queryFindByStatus           = "SELECT id, first_name, last_name, email, date_created, status FROM users WHERE status=?;"
+	queryFindByEmailAndPassword = "SELECT id, first_name, last_name, email, date_created, status form users where email=? AND password=?;"
 )
 
 // Get user by id from database
@@ -100,7 +101,7 @@ func (u *User) Delete() *restError.RestErr {
 
 // FindByStatus in database by status
 func (u *User) FindByStatus(status string) ([]User, *restError.RestErr) {
-	stmt, err := msql.Client.Prepare(queryFindUser)
+	stmt, err := msql.Client.Prepare(queryFindByStatus)
 	if err != nil {
 		logger.Error("error when trying to prepare find user by status statement", err)
 		return nil, restError.NewInternalServerError("database error")
