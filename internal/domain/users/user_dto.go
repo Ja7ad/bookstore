@@ -21,6 +21,8 @@ type User struct {
 	Password    string `json:"password"`
 }
 
+type Users []User
+
 // Validate user entity
 func (u *User) Validate() *restError.RestErr {
 	u.FirstName = strings.TrimSpace(strings.ToLower(u.FirstName))
